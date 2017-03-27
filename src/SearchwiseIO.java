@@ -3,19 +3,19 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created by Daredevil on 2017-03-26.
+ * Created by Robin Hellgren on 2017-03-26.
  */
 public class SearchwiseIO {
     public void runProgram() throws IOException {
-        System.out.println("Welcome!");
         SearchwiseEngine engine = new SearchwiseEngine();
         Scanner in = new Scanner(System.in);
-        int userChoice;
         boolean done = false;
-        do {
+        while (!done) {
             printMenu();
+
             if (in.hasNextInt()) {
-                userChoice = in.nextInt();
+                int userChoice = in.nextInt();
+                in.nextLine(); // Consumes the newline
                 switch (userChoice) {
                     case 0:
                         System.out.println("Goodbye!");
@@ -23,30 +23,33 @@ public class SearchwiseIO {
                         break;
                     case 1:
                         System.out.println("Specify file name:");
-                        String fileName = in.next();
+                        String fileName = in.nextLine();
                         engine.parseSingleFile(fileName);
                         break;
                     case 2:
                         System.out.println("Specify folder path:");
-                        String pathToFolder = in.next();
+                        String pathToFolder = in.nextLine();
                         engine.parseMultipleFiles(pathToFolder);
                         break;
                     case 3:
                         System.out.println("Specify search word:");
-                        String searchWord = in.next();
-                        List<String> result = engine.searchForString(searchWord.toLowerCase());
-                        printSearchResult(result);
+                        String searchWord = in.nextLine();
+                        if (engine.validSearchWord(searchWord)) {
+                            List<String> result = engine.searchForString(searchWord.toLowerCase());
+                            printSearchResult(result);
+                        } else {
+                            System.out.println("Invalid search term, only single term english words are searchable.");
+                        }
                         break;
                     default:
                         System.out.println("Not an option, please write a number between 0 and 3");
                         break;
-
                 }
             } else {
                 in.next();
                 System.out.println("Unsupported input, please write a number between 0 and 3");
             }
-        } while (!done);
+        }
     }
 
     private void printMenu() {

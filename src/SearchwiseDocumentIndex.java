@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
 /**
- * Created by Daredevil on 2017-03-26.
+ * Created by Robin Hellgren on 2017-03-26.
  */
 public class SearchwiseDocumentIndex {
     private String documentName;
@@ -15,8 +15,6 @@ public class SearchwiseDocumentIndex {
     }
 
     public String getDocumentName() { return documentName; }
-
-    public HashMap<String, Integer> getIndex() { return index; }
 
     public int getTermsInDocument() { return termsInDocument; }
 

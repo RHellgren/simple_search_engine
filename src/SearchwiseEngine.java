@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 /**
- * Created by Daredevil on 2017-03-26.
+ * Created by Robin Hellgren on 2017-03-26.
  */
 public class SearchwiseEngine {
     ArrayList<SearchwiseDocumentIndex> dictionary = new ArrayList<>();
@@ -71,6 +71,15 @@ public class SearchwiseEngine {
     }
 
     /**
+     * To make sure the user is not trying to search for single term words, not containing special characters.
+     * @param searchWord the word to check for correctness.
+     * @return true if the word is correct, false otherwise.
+     */
+    public boolean validSearchWord(String searchWord) {
+        return searchWord.matches("^[a-zA-Z]+$");
+    }
+
+    /**
      * Search for the given string (searchWord) in the documents that have been parsed thus far.
      * Returns a list of documents containing the word, sorted by TF-IDF value.
      * @param searchWord the word to search for.
@@ -101,6 +110,4 @@ public class SearchwiseEngine {
 
         return result;
     }
-
-
 }
