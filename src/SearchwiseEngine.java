@@ -18,7 +18,13 @@ public class SearchwiseEngine {
      * @throws IOException if the file does not exist, the path is incorrect or there is other I/O issues.
      */
     public void parseSingleFile(String fileName) throws IOException {
-        Path pathToFile = Paths.get(fileName);
+        Path pathToFile;
+        if (Files.exists(Paths.get(fileName))) {
+            pathToFile = Paths.get(fileName);
+        } else {
+            System.out.println("Not a file, please check the path.");
+            return;
+        }
         String content = new String(Files.readAllBytes(pathToFile));
         String[] words = content.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
         SearchwiseDocumentIndex document = new SearchwiseDocumentIndex(pathToFile.getFileName().toString(), createNewIndex(words), words.length);
@@ -31,7 +37,13 @@ public class SearchwiseEngine {
      * @throws IOException if the path is incorrect or there is other I/O issues.
      */
     public void parseMultipleFiles(String pathToFolder) throws IOException {
-        Stream<Path> paths = Files.walk(Paths.get(pathToFolder));
+        Stream<Path> paths;
+        if (Files.isDirectory(Paths.get(pathToFolder))) {
+            paths = Files.walk(Paths.get(pathToFolder));
+        } else {
+            System.out.println("Not a directory, please check the path.");
+            return;
+        }
         paths.forEach(path -> {
             try {
                 if (Files.isRegularFile(path) && !Files.isHidden(path))

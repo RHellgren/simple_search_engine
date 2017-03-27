@@ -18,6 +18,7 @@ public class SearchwiseIO {
                 userChoice = in.nextInt();
                 switch (userChoice) {
                     case 0:
+                        System.out.println("Goodbye!");
                         done = true;
                         break;
                     case 1:
@@ -56,6 +57,9 @@ public class SearchwiseIO {
     }
 
     private void printSearchResult(List<String> resulting_documents) {
-        resulting_documents.forEach(System.out::println);
+        if (resulting_documents.isEmpty())
+            System.out.println("Could not find that word in any document listed.");
+        else
+            resulting_documents.forEach(System.out::println);
     }
 }
