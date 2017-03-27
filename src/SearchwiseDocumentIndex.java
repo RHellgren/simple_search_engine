@@ -6,19 +6,19 @@ import java.util.HashMap;
 public class SearchwiseDocumentIndex {
     private String documentName;
     private HashMap<String, Integer> index;
+    private int termsInDocument;
 
-    public SearchwiseDocumentIndex(String documentName, HashMap<String, Integer> index) {
+    public SearchwiseDocumentIndex(String documentName, HashMap<String, Integer> index, int termsInDocument) {
         this.documentName = documentName;
         this.index = index;
+        this.termsInDocument = termsInDocument;
     }
-
-    public void setDocumentName(String documentName) { this.documentName = documentName; }
-
-    public void setIndex(HashMap<String, Integer> index) { this.index = index; }
 
     public String getDocumentName() { return documentName; }
 
     public HashMap<String, Integer> getIndex() { return index; }
+
+    public int getTermsInDocument() { return termsInDocument; }
 
     public Integer getCountForWord(String word) {
         if (index.containsKey(word))
